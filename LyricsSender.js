@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name         Lyrics Status V2
+// @name         Lyrics Status V1.0
 // @namespace    -
 // @version      -
 // @description  Script for changing your status as lyrics of currently playing song!
-// @author       OvalQuilter | OQ project
+// @author       DBM Network
 // @match        *://open.spotify.com/*
-// @icon         https://raw.githubusercontent.com/OvalQuilter/lyrics-status/main/Logo.png
+// @icon         https://raw.githubusercontent.com/rligram/better-lyrics-spotify/main/Logo.png
 // @grant        none
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // ==/UserScript==
@@ -49,7 +49,7 @@ $(`
                 </div>
                 <div class="option">
                     <span class="fw-500">Preview:</span>
-                    <span id="status-preview" class="b-area">[2:17] Song lyrics - La-la-la</span>
+                    <span id="status-preview" class="b-area">[2:17]  La-la-la</span>
                 </div>
                 <div class="option">
                     <label for="enable-advanced-swt">Advanced settings</label>
@@ -517,7 +517,7 @@ let settings = {
         advanced: {
             enabled: false,
             customEmoji: "🎶",
-            customStatus: "[{timestamp}] Song lyrics - {lyrics}"
+            customStatus: "[{timestamp}]  {lyrics}"
         }
     },
     timings: {
@@ -719,7 +719,7 @@ function formatSeconds(s) {
     return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0' ) + s;
 }
 function getStatusString(lyrics, time) {
-    return `${settings.view.timestamp ? `[${formatSeconds((time / 1000).toFixed(0))}] ` : ""}${settings.view.label ? "Song lyrics - " : ""}${lyrics.replace("♪", "🎶")}`;
+    return `${settings.view.timestamp ? `[${formatSeconds((time / 1000).toFixed(0))}] ` : ""}${settings.view.label ? "  " : ""}${lyrics.replace("♪", "🎶")}`;
 }
 function parseStatusString(status, data) {
     if(typeof data !== "object") return;
@@ -947,8 +947,8 @@ function updatePlaybackState() {
                 playbackState.isPlaying = d.is_playing;
             },
             401: () => { refreshAccessToken(); },
-            404: () => { addLog("Got unexpected error! For more details please read <a style=\"color: #ff0000;\" href=\"https://github.com/OvalQuilter/lyrics-status#error-list\" target=\"_blank\">this</a>. <strong class=\"error\">Error code: 404</strong>", "error"); errorCount++ },
-            502: () => { addLog("Got unexpected error! For more details please read <a style=\"color: #ff0000;\" href=\"https://github.com/OvalQuilter/lyrics-status#error-list\" target=\"_blank\">this</a>. <strong class=\"error\">Error code: 502</strong>", "error"); errorCount++ }
+            404: () => { addLog("Got unexpected error! For more details please read <a style=\"color: #ff0000;\" href=\"https://github.com/rligram/better-lyrics-spotify#error-list\" target=\"_blank\">this</a>. <strong class=\"error\">Error code: 404</strong>", "error"); errorCount++ },
+            502: () => { addLog("Got unexpected error! For more details please read <a style=\"color: #ff0000;\" href=\"https://github.com/rligram/better-lyrics-spotify#error-list\" target=\"_blank\">this</a>. <strong class=\"error\">Error code: 502</strong>", "error"); errorCount++ }
         }
     });
 }
